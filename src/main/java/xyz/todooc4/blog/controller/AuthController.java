@@ -7,19 +7,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import xyz.todooc4.blog.data.dto.LoginRequest;
 import xyz.todooc4.blog.data.dto.RegisterRequest;
-import xyz.todooc4.blog.service.AuthService;
+import xyz.todooc4.blog.security.AuthSecurity;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
-    private AuthService authService;
+    private AuthSecurity authSecurity;
 
     @PostMapping("/signup")
     public ResponseEntity signup(@RequestBody RegisterRequest registerRequest) {
-        authService.signup(registerRequest);
+        authSecurity.signup(registerRequest);
         return  new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest loginRequest){
+       return authSecurity.login(loginRequest);
     }
 }
