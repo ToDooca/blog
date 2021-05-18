@@ -7,24 +7,20 @@ import javax.persistence.*;
 import lombok.*;
 
 /**
- * User permissions
+ * Uploaded image shown on the blog post
  */
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "role")
+@Table(name = "media")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-public class Role extends Auditable {
+public class Media extends Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	@Column(name = "role_id")
+	@Column(name = "media_id")
 	private Integer id;
-	@Column(name = "name")
-	private String name;
-	@ManyToMany
-	@JsonIgnore
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "role_fk"), inverseJoinColumns = @JoinColumn(name = "user_fk"))
-	private List<User> users;
+	@Column(name = "uri")
+	private String uri;
 	
 }

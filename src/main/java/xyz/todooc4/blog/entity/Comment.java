@@ -7,24 +7,26 @@ import javax.persistence.*;
 import lombok.*;
 
 /**
- * User permissions
+ * User comment on a post
  */
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name = "role")
+@Table(name = "comment")
 @EqualsAndHashCode(callSuper = false, onlyExplicitlyIncluded = true)
-public class Role extends Auditable {
+public class Comment extends Auditable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@EqualsAndHashCode.Include
-	@Column(name = "role_id")
+	@Column(name = "comment_id")
 	private Integer id;
-	@Column(name = "name")
-	private String name;
-	@ManyToMany
-	@JsonIgnore
-	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "role_fk"), inverseJoinColumns = @JoinColumn(name = "user_fk"))
-	private List<User> users;
+	@JoinColumn(name = "user_fk", referencedColumnName = "user_id")
+	@ManyToOne
+	private User user;
+	@JoinColumn(name = "post_fk", referencedColumnName = "post_id")
+	@ManyToOne
+	private Post post;
+	@Column(name = "body")
+	private String body;
 	
 }
