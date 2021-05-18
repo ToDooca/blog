@@ -69,8 +69,6 @@ create table `post`
     `title`              varchar(255)                            not null,
     `excerpt`            text                                    not null,
     `body`               text                                    not null,
-    `deleted`            tinyint(1)  default 0                   null,
-    `published`          tinyint(1)  default 0                   null,
     `views`              bigint                                  null,
     `slug`               varchar(64)                             not null,
 
@@ -116,6 +114,6 @@ create table `user_role`
         on update cascade on delete cascade,
     constraint fk_user_role_user foreign key (`user_fk`) references `user` (`user_id`)
         on update cascade on delete cascade
-);
+) comment 'Blog user or author';
 
 set foreign_key_checks = 1;
